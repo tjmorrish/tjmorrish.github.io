@@ -1,11 +1,393 @@
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Academic Website</title>
+  <meta name="description" content="Academic website for Your Name: research, publications, teaching, and contact." />
+
+  <!-- Open Graph (nice previews when sharing links) -->
+  <meta property="og:title" content="Your Name — Academic Website" />
+  <meta property="og:description" content="Research, publications, teaching, and contact." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --faint: rgba(255,255,255,.55);
+      --border: rgba(255,255,255,.12);
+      --accent: #7dd3fc;
+      --accent2:#a78bfa;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 980px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(125,211,252,.18), transparent 55%),
+        radial-gradient(800px 550px at 80% 20%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(700px 500px at 50% 95%, rgba(34,197,94,.10), transparent 60%),
+        var(--bg);
+      line-height: 1.55;
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .container{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 64px; }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 18px;
+      padding: 12px 0 22px;
+    }
+    .brand{
+      display:flex; gap: 14px; align-items:center;
+      min-width: 260px;
+    }
+    .avatar{
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(125,211,252,.85), rgba(167,139,250,.85));
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      font-weight: 800;
+      color: rgba(0,0,0,.75);
+      letter-spacing: .5px;
+      user-select:none;
+    }
+    .brand h1{ font-size: 1.15rem; margin:0; }
+    .brand p{ margin: 2px 0 0; color: var(--muted); font-size: .95rem; }
+
+    nav{
+      display:flex; flex-wrap:wrap;
+      gap: 8px;
+      justify-content:flex-end;
+    }
+    nav a{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--muted);
+    }
+    nav a:hover{
+      border-color: var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      text-decoration:none;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 18px;
+      align-items:stretch;
+      margin-top: 6px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .hero h2{ margin: 0 0 10px; font-size: 1.6rem; letter-spacing: .2px; }
+    .hero p{ margin: 0 0 12px; color: var(--muted); }
+    .hero .tags{
+      display:flex; flex-wrap:wrap; gap: 8px; margin-top: 12px;
+    }
+    .tag{
+      font-size: .85rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+    }
+
+    .quick ul{ list-style:none; padding:0; margin: 0; }
+    .quick li{ margin: 8px 0; color: var(--muted); }
+    .quick strong{ color: var(--text); font-weight: 650; }
+    .quick .btns{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: 12px; }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      text-decoration:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.06); text-decoration:none; }
+
+    main{
+      margin-top: 18px;
+      display:grid;
+      gap: 14px;
+    }
+
+    section h3{
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      letter-spacing: .2px;
+    }
+    .muted{ color: var(--muted); }
+    .small{ font-size: .95rem; color: var(--muted); }
+
+    .list{
+      display:grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .item{
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.10);
+    }
+    .item h4{ margin: 0 0 4px; font-size: 1rem; }
+    .meta{ font-size: .92rem; color: var(--faint); }
+    .links{ margin-top: 6px; display:flex; flex-wrap:wrap; gap: 10px; }
+
+    footer{
+      margin-top: 22px;
+      color: var(--faint);
+      text-align:center;
+      font-size: .92rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      header{ flex-direction: column; align-items:flex-start; }
+      nav{ justify-content:flex-start; }
+      .hero{ grid-template-columns: 1fr; }
+      .brand{ min-width: auto; }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Hello World</h1>
-    
+  <div class="container">
+
+    <header>
+      <div class="brand">
+        <div class="avatar" aria-hidden="true">YN</div>
+        <div>
+          <h1>Your Name</h1>
+          <p>Position / Department · University · City, Country</p>
+        </div>
+      </div>
+
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#talks">Talks</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div class="card" id="about">
+        <h2>Hi — I’m Your Name.</h2>
+        <p>
+          I’m a <strong>role</strong> in the <strong>Department</strong> at <strong>University</strong>.
+          My work focuses on <em>research area A</em>, <em>research area B</em>, and <em>research area C</em>.
+        </p>
+        <p>
+          I’m interested in collaborations on <span class="muted">X</span>, <span class="muted">Y</span>, and <span class="muted">Z</span>.
+          Here’s my <a href="#" title="Link to CV PDF">CV</a> and <a href="#" title="Link to Google Scholar">Google Scholar</a>.
+        </p>
+        <div class="tags" aria-label="Research keywords">
+          <span class="tag">Keyword 1</span>
+          <span class="tag">Keyword 2</span>
+          <span class="tag">Keyword 3</span>
+          <span class="tag">Keyword 4</span>
+        </div>
+      </div>
+
+      <aside class="card quick">
+        <h3 style="margin-top:0;">Quick Links</h3>
+        <ul>
+          <li><strong>Email:</strong> you@university.edu</li>
+          <li><strong>Office:</strong> Building · Room 000</li>
+          <li><strong>CV:</strong> <a href="#">cv.pdf</a></li>
+          <li><strong>Scholar:</strong> <a href="#">Google Scholar</a></li>
+          <li><strong>ORCID:</strong> <a href="#">0000-0000-0000-0000</a></li>
+          <li><strong>GitHub:</strong> <a href="#">@yourusername</a></li>
+        </ul>
+
+        <div class="btns">
+          <a class="btn" href="#publications" title="Jump to publications">📚 Publications</a>
+          <a class="btn" href="#contact" title="Jump to contact">✉️ Contact</a>
+        </div>
+      </aside>
+    </div>
+
+    <main>
+
+      <section class="card" id="research">
+        <h3>Research</h3>
+        <p class="small">
+          Briefly describe your research agenda, methods, and the kinds of questions you study.
+        </p>
+        <ul class="list">
+          <li class="item">
+            <h4>Theme 1 — Short description</h4>
+            <div class="meta">1–2 sentences about what this theme covers and why it matters.</div>
+          </li>
+          <li class="item">
+            <h4>Theme 2 — Short description</h4>
+            <div class="meta">Mention key techniques, datasets, or theory you use.</div>
+          </li>
+          <li class="item">
+            <h4>Theme 3 — Short description</h4>
+            <div class="meta">Add a sentence on current projects or collaborators.</div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card" id="publications">
+        <h3>Selected Publications</h3>
+        <p class="small">Replace with your papers. Add links to PDFs, arXiv, code, and slides.</p>
+
+        <ul class="list">
+          <li class="item">
+            <h4>Paper Title One</h4>
+            <div class="meta">
+              Your Name, Coauthor A, Coauthor B · <em>Venue</em> · 2026
+            </div>
+            <div class="links">
+              <a href="#">PDF</a>
+              <a href="#">DOI</a>
+              <a href="#">Code</a>
+              <a href="#">Slides</a>
+            </div>
+          </li>
+
+          <li class="item">
+            <h4>Paper Title Two</h4>
+            <div class="meta">
+              Coauthor A, <strong>Your Name</strong> · <em>Venue</em> · 2025
+            </div>
+            <div class="links">
+              <a href="#">arXiv</a>
+              <a href="#">Project Page</a>
+            </div>
+          </li>
+
+          <li class="item">
+            <h4>Paper Title Three</h4>
+            <div class="meta">
+              Your Name · <em>Preprint</em> · 2024
+            </div>
+            <div class="links">
+              <a href="#">PDF</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card" id="teaching">
+        <h3>Teaching</h3>
+        <ul class="list">
+          <li class="item">
+            <h4>Course Name (CODE123)</h4>
+            <div class="meta">University · Term 2026</div>
+            <div class="links">
+              <a href="#">Syllabus</a>
+              <a href="#">Materials</a>
+            </div>
+          </li>
+          <li class="item">
+            <h4>Course Name (CODE456)</h4>
+            <div class="meta">University · Term 2025</div>
+            <div class="links">
+              <a href="#">Syllabus</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card" id="talks">
+        <h3>Talks</h3>
+        <ul class="list">
+          <li class="item">
+            <h4>Talk Title</h4>
+            <div class="meta">Event / Institution · City · 2026</div>
+            <div class="links">
+              <a href="#">Slides</a>
+              <a href="#">Video</a>
+            </div>
+          </li>
+          <li class="item">
+            <h4>Talk Title</h4>
+            <div class="meta">Workshop / Seminar · 2025</div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card" id="contact">
+        <h3>Contact</h3>
+        <p class="small">
+          The easiest way to reach me is by email. For students: include your program, year, and what you’d like to discuss.
+        </p>
+
+        <ul class="list">
+          <li class="item">
+            <h4>Email</h4>
+            <div class="meta"><a href="mailto:you@university.edu">you@university.edu</a></div>
+          </li>
+          <li class="item">
+            <h4>Office</h4>
+            <div class="meta">Building · Room 000 · University</div>
+          </li>
+          <li class="item">
+            <h4>Mailing Address</h4>
+            <div class="meta">Department, University, Street, City, Postcode, Country</div>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> Your Name · Hosted on GitHub Pages
+    </footer>
+  </div>
+
+  <script>
+    // Update year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Optional: smooth scroll for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, "", id);
+      });
+    });
+  </script>
 </body>
 </html>
